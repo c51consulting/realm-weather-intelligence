@@ -65,23 +65,28 @@ def _fallback_summary(location, forecast, risk, warnings, user_type):
     return " ".join(parts)
 
 async def generate_summary(location, forecast, risk, warnings, user_type="general"):
-    """Generate AI summary. Falls back to template if no OpenAI key."""
+    """Generate AI summary. Falls back to template if no OpenAI key or on error."""
     api_key = os.getenv("OPENAI_API_KEY", "")
 
-    if HAS_OPENAI and api_key:
-        client = AsyncOpenAI(api_key=api_key)
-        user_prompt = _build_user_prompt(location, forecast, risk, warnings, user_type)
-        response = await client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": user_prompt},
-            ],
-            max_tokens=300,
-            temperature=0.7,
-        )
-        text = response.choices[0].message.content
-        source = "ai"
+    if HAS_OPENAI and api_key and not api_key.startswith("sk-your"):
+        try:
+            client = AsyncOpenAI(api_key=api_key)
+            user_prompt = _build_user_prompt(location, forecast, risk, warnings, user_type)
+            response = await client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": user_prompt},
+                ],
+                max_tokens=300,
+                temperature=0.7,
+            )
+            text = response.choices[0].message.content
+            source = "ai"
+        except Exception as e:
+            print(f"OpenAI error, using fallback: {e}")
+            text = _fallback_summary(location, forecast, risk, warnings, user_type)
+            source = "template"
     else:
         text = _fallback_summary(location, forecast, risk, warnings, user_type)
         source = "template"
