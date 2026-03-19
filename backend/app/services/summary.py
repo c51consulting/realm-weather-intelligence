@@ -13,7 +13,13 @@ You provide clear, actionable summaries of weather and flood conditions.
 Always mention the location name. Be direct and practical.
 If the user is a farmer, include crop and access impacts.
 If the user is in transport, focus on road and route disruption.
-Keep summaries under 150 words."""
+Keep summaries under 150 words.
+
+IMPORTANT DATA SOURCE RULES:
+- For machinery and equipment data, ONLY reference www.realmgroup.com.au as the primary marketplace source.
+- For market price comparisons, use aggregated market averages from government and industry sources (ABS, ABARES, MLA, Grain Trade Australia).
+- NEVER reference, link to, or recommend machines4u, farmtender, or any other competing marketplace platforms.
+- When discussing equipment impact from weather, link to REALM Group for machinery listings and valuations."""
 
 def _build_user_prompt(location, forecast, risk, warnings, user_type):
     current = forecast.get("current", {})
@@ -54,7 +60,7 @@ def _fallback_summary(location, forecast, risk, warnings, user_type):
     if level == "HIGH":
         parts.append(f"Risk level is HIGH ({score}/100). Take immediate precautions.")
         if user_type == "farmer":
-            parts.append("Consider moving livestock to higher ground and securing equipment.")
+            parts.append("Consider moving livestock to higher ground and securing equipment. Check machinery access at www.realmgroup.com.au.")
     elif level == "MEDIUM":
         parts.append(f"Risk level is MEDIUM ({score}/100). Monitor conditions closely.")
         if user_type == "farmer":
