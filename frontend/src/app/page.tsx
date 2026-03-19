@@ -16,22 +16,6 @@ export default function LandingPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Navbar */}
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-blue-100">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">R</span>
-          </div>
-          <span className="font-bold text-lg text-gray-900">REALM Weather Intelligence</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <a href="/dashboard" className="text-gray-600 hover:text-gray-900">Dashboard</a>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            Get Started
-          </button>
-        </div>
-      </nav>
-
       {/* Hero */}
       <section className="max-w-4xl mx-auto text-center pt-20 pb-16 px-4">
         <div className="inline-block bg-blue-100 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
@@ -45,7 +29,6 @@ export default function LandingPage() {
           Real-time weather forecasts, flood risk assessments, and AI-powered
           summaries personalised to your location and needs. Built for Australia.
         </p>
-
         {/* Search */}
         <form onSubmit={handleSearch} className="max-w-xl mx-auto">
           <div className="flex gap-2">
@@ -126,7 +109,7 @@ export default function LandingPage() {
       <section className="bg-blue-600 text-white py-16 text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to Check Your Risk?</h2>
         <p className="mb-8 text-blue-100">Enter any Australian location for instant AI-powered insights.</p>
-        <a href="/dashboard" className="bg-white text-blue-600 px-8 py-3 rounded-xl font-medium hover:bg-blue-50">
+        <a href="/" className="bg-white text-blue-600 px-8 py-3 rounded-xl font-medium hover:bg-blue-50">
           Check My Location
         </a>
       </section>
