@@ -66,14 +66,13 @@ function ResultsContent() {
             ))}
           </div>
         </div>
-
         <div className="bg-white rounded-xl border p-6">
           <h2 className="text-lg font-semibold mb-4">Current Conditions</h2>
           <div className="grid grid-cols-2 gap-4">
-            <div><span className="text-gray-500 text-sm">Temp</span><div className="text-2xl font-bold">{forecast.current.temp_c}&deg;C</div></div>
+            <div><span className="text-gray-500 text-sm">Temp</span><div className="text-2xl font-bold">{forecast.current.temp_f}&deg;F</div></div>
             <div><span className="text-gray-500 text-sm">Humidity</span><div className="text-2xl font-bold">{forecast.current.humidity}%</div></div>
-            <div><span className="text-gray-500 text-sm">Wind</span><div className="text-2xl font-bold">{forecast.current.wind_kmh} km/h</div></div>
-            <div><span className="text-gray-500 text-sm">Rain</span><div className="text-2xl font-bold">{forecast.current.rain_mm} mm</div></div>
+            <div><span className="text-gray-500 text-sm">Wind</span><div className="text-2xl font-bold">{forecast.current.wind_mph} mph</div></div>
+            <div><span className="text-gray-500 text-sm">Rain</span><div className="text-2xl font-bold">{forecast.current.rain_in}&quot;</div></div>
           </div>
         </div>
       </div>
@@ -88,11 +87,11 @@ function ResultsContent() {
 
       {/* Rainfall Outlook */}
       <div className="bg-white rounded-xl border p-6 mb-8">
-        <h2 className="text-lg font-semibold mb-4">Rainfall Outlook</h2>
+        <h2 className="text-lg font-semibold mb-4">Precipitation Outlook</h2>
         <div className="grid grid-cols-3 gap-4 text-center">
-          <div><div className="text-sm text-gray-500">Next 24h</div><div className="text-xl font-bold">{forecast.rain_next_24h} mm</div></div>
-          <div><div className="text-sm text-gray-500">Next 48h</div><div className="text-xl font-bold">{forecast.rain_next_48h} mm</div></div>
-          <div><div className="text-sm text-gray-500">Next 72h</div><div className="text-xl font-bold">{forecast.rain_next_72h} mm</div></div>
+          <div><div className="text-sm text-gray-500">Next 24h</div><div className="text-xl font-bold">{forecast.rain_next_24h}&quot;</div></div>
+          <div><div className="text-sm text-gray-500">Next 48h</div><div className="text-xl font-bold">{forecast.rain_next_48h}&quot;</div></div>
+          <div><div className="text-sm text-gray-500">Next 72h</div><div className="text-xl font-bold">{forecast.rain_next_72h}&quot;</div></div>
         </div>
       </div>
 
@@ -104,9 +103,9 @@ function ResultsContent() {
             {forecast.daily.map((day) => (
               <div key={day.date} className="text-center p-3 rounded-lg bg-gray-50 min-w-[100px]">
                 <div className="text-xs text-gray-500">{day.date}</div>
-                <div className="font-bold">{day.temp_max}&deg;</div>
-                <div className="text-sm text-gray-400">{day.temp_min}&deg;</div>
-                <div className="text-xs text-blue-600 mt-1">{day.rain_mm}mm ({day.rain_chance}%)</div>
+                <div className="font-bold">{day.temp_max}&deg;F</div>
+                <div className="text-sm text-gray-400">{day.temp_min}&deg;F</div>
+                <div className="text-xs text-blue-600 mt-1">{day.rain_in}&quot; ({day.rain_chance}%)</div>
               </div>
             ))}
           </div>
@@ -116,13 +115,13 @@ function ResultsContent() {
       {/* Warnings */}
       {warnings.length > 0 && (
         <div className="bg-white rounded-xl border p-6 mb-8">
-          <h2 className="text-lg font-semibold mb-4">Active Warnings ({warnings.length})</h2>
+          <h2 className="text-lg font-semibold mb-4">Active NWS Alerts ({warnings.length})</h2>
           <div className="space-y-3">
             {warnings.map((w, i) => (
               <div key={i} className="p-4 rounded-lg bg-orange-50 border border-orange-200">
                 <div className="font-medium">{w.title}</div>
                 <div className="text-sm text-gray-600 mt-1">{w.summary}</div>
-                <a href={w.link} target="_blank" rel="noopener" className="text-sm text-blue-600 mt-2 inline-block">View on BOM</a>
+                <a href={w.link} target="_blank" rel="noopener" className="text-sm text-blue-600 mt-2 inline-block">View on NWS</a>
               </div>
             ))}
           </div>
