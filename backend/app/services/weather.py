@@ -1,13 +1,16 @@
-"""Fetch weather forecast data from Open-Meteo API."""
+"""Fetch weather forecast data from Open-Meteo API - US Imperial units."""
 import httpx
 from app.config import OPEN_METEO_BASE
 
 async def get_forecast(lat: float, lon: float) -> dict:
     """Get 7-day forecast for given coordinates.
-    Returns temperature, rain, wind, humidity data."""
+    Returns temperature in °F, rain in inches, wind in mph."""
     params = {
         "latitude": lat,
         "longitude": lon,
+        "temperature_unit": "fahrenheit",
+        "windspeed_unit": "mph",
+        "precipitation_unit": "inch",
         "daily": ",".join([
             "temperature_2m_max",
             "temperature_2m_min",
@@ -30,7 +33,6 @@ async def get_forecast(lat: float, lon: float) -> dict:
     async with httpx.AsyncClient() as client:
         resp = await client.get(OPEN_METEO_BASE, params=params)
         data = resp.json()
-
     current = data.get("current", {})
     daily = data.get("daily", {})
     days = []
@@ -40,23 +42,22 @@ async def get_forecast(lat: float, lon: float) -> dict:
             "date": date,
             "temp_max": daily["temperature_2m_max"][i],
             "temp_min": daily["temperature_2m_min"][i],
-            "rain_mm": daily["precipitation_sum"][i],
+            "rain_in": daily["precipitation_sum"][i],
             "rain_chance": daily["precipitation_probability_max"][i],
-            "wind_max_kmh": daily["windspeed_10m_max"][i],
-            "gust_max_kmh": daily["windgusts_10m_max"][i],
+            "wind_max_mph": daily["windspeed_10m_max"][i],
+            "gust_max_mph": daily["windgusts_10m_max"][i],
             "weather_code": daily["weathercode"][i],
         })
-
     return {
         "current": {
-            "temp_c": current.get("temperature_2m"),
+            "temp_f": current.get("temperature_2m"),
             "humidity": current.get("relative_humidity_2m"),
-            "rain_mm": current.get("precipitation"),
-            "wind_kmh": current.get("windspeed_10m"),
+            "rain_in": current.get("precipitation"),
+            "wind_mph": current.get("windspeed_10m"),
             "weather_code": current.get("weathercode"),
         },
         "daily": days,
-        "rain_next_24h": days[0]["rain_mm"] if days else 0,
-        "rain_next_48h": sum(d["rain_mm"] for d in days[:2]),
-        "rain_next_72h": sum(d["rain_mm"] for d in days[:3]),
+        "rain_next_24h": days[0]["rain_in"] if days else 0,
+        "rain_next_48h": sum(d["rain_in"] for d in days[:2]),
+        "rain_next_72h": sum(d["rain_in"] for d in days[:3]),
     }
