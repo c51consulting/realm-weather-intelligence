@@ -22,12 +22,12 @@ export default function LandingPage() {
           Part of the REALM Overlay Ecosystem
         </div>
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
-          Know What's Coming{" "}
+          Know What&apos;s Coming{" "}
           <span className="text-blue-600">Before It Hits</span>
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-          Real-time weather forecasts, flood risk assessments, and AI-powered
-          summaries personalised to your location and needs. Built for Australia.
+          Real-time weather forecasts, severe weather alerts, and AI-powered
+          summaries personalised to your location and needs. Built for the United States.
         </p>
         {/* Search */}
         <form onSubmit={handleSearch} className="max-w-xl mx-auto">
@@ -36,7 +36,7 @@ export default function LandingPage() {
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="Enter any Australian location..."
+              placeholder="Enter any US city, state or ZIP code..."
               className="flex-1 px-5 py-3.5 rounded-xl border border-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
@@ -52,9 +52,9 @@ export default function LandingPage() {
       {/* Stats */}
       <section className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 px-4 pb-16">
         {[
-          { label: "BOM Warnings", value: "Real-Time" },
-          { label: "River Gauges", value: "500+" },
-          { label: "Road Closures", value: "All States" },
+          { label: "NWS Alerts", value: "Real-Time" },
+          { label: "USGS Gauges", value: "9,000+" },
+          { label: "All 50 States", value: "Coverage" },
           { label: "Risk Summaries", value: "AI-Powered" },
         ].map((s) => (
           <div key={s.label} className="text-center">
@@ -91,9 +91,9 @@ export default function LandingPage() {
         <div className="grid md:grid-cols-3 gap-6">
           {[
             { title: "AI Risk Summary", desc: "Plain-English summaries with actionable guidance powered by AI analysis." },
-            { title: "BOM Warnings", desc: "Real-time flood warnings from the Bureau of Meteorology with severity levels." },
-            { title: "River Gauges", desc: "Monitor 500+ river gauges with trend indicators and flood thresholds." },
-            { title: "Weather Forecast", desc: "7-day forecasts including rainfall, temperature, wind and storm probability." },
+            { title: "NWS Alerts", desc: "Real-time severe weather alerts from the National Weather Service with severity levels." },
+            { title: "USGS River Gauges", desc: "Monitor 9,000+ USGS river gauges with trend indicators and flood thresholds." },
+            { title: "Weather Forecast", desc: "7-day forecasts including rainfall, temperature (°F), wind (mph) and storm probability." },
             { title: "Saved Locations", desc: "Save home, farm, work and travel routes for instant risk checks." },
             { title: "Smart Alerts", desc: "Get notified when risk changes at your locations via email or SMS." },
           ].map((f) => (
@@ -108,7 +108,7 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="bg-blue-600 text-white py-16 text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to Check Your Risk?</h2>
-        <p className="mb-8 text-blue-100">Enter any Australian location for instant AI-powered insights.</p>
+        <p className="mb-8 text-blue-100">Enter any US location for instant AI-powered insights.</p>
         <a href="/" className="bg-white text-blue-600 px-8 py-3 rounded-xl font-medium hover:bg-blue-50">
           Check My Location
         </a>
