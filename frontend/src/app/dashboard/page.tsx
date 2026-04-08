@@ -52,7 +52,7 @@ export default function DashboardPage() {
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="Enter suburb, town or address..."
+              placeholder="Enter US city, state or ZIP code..."
               className="flex-1 min-w-[200px] px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               onKeyDown={(e) => e.key === "Enter" && addLocation()}
             />
@@ -79,7 +79,7 @@ export default function DashboardPage() {
         {reports.length === 0 ? (
           <div className="text-center py-20 text-gray-400">
             <p className="text-lg">No locations added yet.</p>
-            <p className="text-sm">Search above to add your first location.</p>
+            <p className="text-sm">Search above to add your first US location.</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -94,30 +94,27 @@ export default function DashboardPage() {
                     {r.risk.level} {r.risk.score}
                   </span>
                 </div>
-
                 <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                   <div>
                     <span className="text-gray-500">Temp</span>
-                    <div className="font-semibold">{r.forecast.current.temp_c}&deg;C</div>
+                    <div className="font-semibold">{r.forecast.current.temp_f}&deg;F</div>
                   </div>
                   <div>
                     <span className="text-gray-500">Rain 24h</span>
-                    <div className="font-semibold">{r.forecast.rain_next_24h} mm</div>
+                    <div className="font-semibold">{r.forecast.rain_next_24h}&quot;</div>
                   </div>
                   <div>
                     <span className="text-gray-500">Wind</span>
-                    <div className="font-semibold">{r.forecast.current.wind_kmh} km/h</div>
+                    <div className="font-semibold">{r.forecast.current.wind_mph} mph</div>
                   </div>
                   <div>
-                    <span className="text-gray-500">Warnings</span>
+                    <span className="text-gray-500">NWS Alerts</span>
                     <div className="font-semibold">{r.warnings.length}</div>
                   </div>
                 </div>
-
                 <div className="bg-blue-50 rounded-lg p-3 text-sm text-gray-700">
                   {r.summary.summary.slice(0, 200)}{r.summary.summary.length > 200 ? "..." : ""}
                 </div>
-
                 <a
                   href={`/results?location=${encodeURIComponent(r.location.name)}`}
                   className="text-blue-600 text-sm mt-3 inline-block hover:underline"
