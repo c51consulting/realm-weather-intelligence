@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "REALM Weather Intelligence",
-  description: "Australian weather, flood and risk intelligence platform",
+  description: "US weather, severe storm and risk intelligence platform",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
