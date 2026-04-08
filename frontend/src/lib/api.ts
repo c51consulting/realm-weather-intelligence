@@ -13,10 +13,10 @@ export interface Location {
 }
 
 export interface CurrentWeather {
-  temp_c: number;
+  temp_f: number;
   humidity: number;
-  rain_mm: number;
-  wind_kmh: number;
+  rain_in: number;
+  wind_mph: number;
   weather_code: number;
 }
 
@@ -24,10 +24,10 @@ export interface DayForecast {
   date: string;
   temp_max: number;
   temp_min: number;
-  rain_mm: number;
+  rain_in: number;
   rain_chance: number;
-  wind_max_kmh: number;
-  gust_max_kmh: number;
+  wind_max_mph: number;
+  gust_max_mph: number;
   weather_code: number;
 }
 
