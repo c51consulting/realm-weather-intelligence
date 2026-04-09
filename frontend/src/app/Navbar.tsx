@@ -31,33 +31,29 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">R</div>
-            <span className="font-semibold text-gray-900">REALM Weather Intelligence</span>
+    <nav className="bg-gray-900 text-white px-6 py-3 flex items-center justify-between">
+      <Link href="/" className="flex items-center gap-2 font-bold text-lg">
+        <span className="text-2xl">R</span> REALM Weather Intelligence
+      </Link>
+      <div className="flex items-center gap-4 text-sm">
+        {user && (
+          <Link href="/dashboard" className="hover:text-blue-300">Dashboard</Link>
+        )}
+        {!loading && (
+          user ? (
+            <div className="flex items-center gap-3">
+              <span className="text-gray-400">{user.email}</span>
+              <button onClick={handleLogout} className="hover:text-red-300">&nbsp;Logout</button>
+            </div>
+          ) : (
+            <Link href="/login" className="hover:text-blue-300">Login</Link>
+          )
+        )}
+        {user && (
+          <Link href="/" className="bg-blue-600 hover:bg-blue-700 px-4 py-1.5 rounded-lg font-medium">
+            Check Risk
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-sm text-gray-600 hover:text-gray-900 transition">Dashboard</Link>
-            {!loading && (
-              user ? (
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-gray-500 hidden sm:inline">{user.email}</span>
-                  <button
-                    onClick={handleLogout}
-                    className="text-sm text-gray-600 hover:text-gray-900 transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition">Login</Link>
-              )
-            )}
-            <Link href="/" className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Check Risk</Link>
-          </div>
-        </div>
+        )}
       </div>
     </nav>
   );
