@@ -1,7 +1,8 @@
 // frontend/src/app/dashboard/page.tsx
-"use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getSummary, FullReport } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 const USER_TYPES = [
   { value: "general", label: "General" },
@@ -16,6 +17,29 @@ export default function DashboardPage() {
   const [userType, setUserType] = useState("general");
   const [reports, setReports] = useState<FullReport[]>([]);
   const [loading, setLoading] = useState(false);
+    const [authChecked, setAuthChecked] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) {
+        router.push('/login');
+      } else {
+        setAuthChecked(true);
+      }
+    });
+  }, [router]);
+
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm mx-auto mb-3">R</div>
+          <p className="text-gray-500 text-sm">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
 
   const addLocation = async () => {
     if (!location.trim()) return;
