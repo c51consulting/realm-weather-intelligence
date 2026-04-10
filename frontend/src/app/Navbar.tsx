@@ -32,28 +32,28 @@ export default function Navbar() {
 
   return (
     <nav className="bg-gray-900 text-white px-6 py-3 flex items-center justify-between">
-      <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-        <span className="text-2xl">R</span> REALM Weather Intelligence
-      </Link>
-      <div className="flex items-center gap-4 text-sm">
+      <div className="flex items-center gap-6">
+        <Link href="/" className="flex items-center gap-2 font-bold text-lg">
+          <span className="text-2xl">R</span> REALM Weather Intelligence
+        </Link>
         {user && (
-          <Link href="/dashboard" className="hover:text-blue-300">Dashboard</Link>
+          <Link href="/dashboard" className="text-sm text-gray-400 hover:text-white transition hidden sm:inline">Dashboard</Link>
         )}
+      </div>
+      <div className="flex items-center gap-4">
         {!loading && (
           user ? (
             <div className="flex items-center gap-3">
-              <span className="text-gray-400">{user.email}</span>
-              <button onClick={handleLogout} className="hover:text-red-300">&nbsp;Logout</button>
+              <span className="text-xs text-gray-400 hidden sm:inline">{user.email}</span>
+              <button onClick={handleLogout} className="text-sm text-gray-400 hover:text-white transition">Logout</button>
             </div>
           ) : (
-            <Link href="/login" className="hover:text-blue-300">Login</Link>
+            <Link href="/login" className="text-sm text-gray-400 hover:text-white transition">Sign In</Link>
           )
         )}
-        {user && (
-          <Link href="/" className="bg-blue-600 hover:bg-blue-700 px-4 py-1.5 rounded-lg font-medium">
-            Check Risk
-          </Link>
-        )}
+        <Link href="/login?tab=register" className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition">
+          Check Weather Risk
+        </Link>
       </div>
     </nav>
   );
