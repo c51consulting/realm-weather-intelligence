@@ -1,4 +1,4 @@
-// frontend/src/app/page.tsx - Gated Landing Page
+// frontend/src/app/page.tsx - Landing Page
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -26,48 +26,43 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="max-w-4xl mx-auto text-center pt-20 pb-16 px-4">
         <div className="inline-block bg-blue-100 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-          Part of the REALM Overlay Ecosystem
+          Part of the REALM Overlay Intelligence System
         </div>
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
           Know What&apos;s Coming{" "}
           <span className="text-blue-600">Before It Hits</span>
         </h1>
+        <p className="text-gray-500 text-sm mb-2">Built for Australian properties, routes, and real-time risk monitoring</p>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-4">
           Real-time weather forecasts, severe weather alerts, and AI-powered
-          risk summaries for any US location.
+          risk summaries for any Australian location.
         </p>
         <p className="text-sm text-gray-500 mb-10">
-          Free account required to access risk checks, saved locations, AI summaries, and alerts.
+          Your first check is free. Save locations, track over time, and unlock full risk history with an account.
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-          <Link
-            href="/login?tab=register"
-            className="flex-1 bg-blue-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-blue-700 transition text-center"
-          >
-            Create Free Account
+          <Link href="/login?tab=register" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg text-center transition">
+            Check Weather Risk
           </Link>
-          <Link
-            href="/login"
-            className="flex-1 bg-white text-gray-700 px-8 py-3.5 rounded-xl font-medium border border-gray-300 hover:bg-gray-50 transition text-center"
-          >
+          <Link href="/login" className="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-lg text-center transition">
             Sign In
           </Link>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="max-w-4xl mx-auto px-4 pb-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* Metrics Strip */}
+      <section className="max-w-4xl mx-auto px-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: "NWS Alerts", value: "Real-Time" },
-            { label: "USGS Gauges", value: "9,000+" },
-            { label: "All 50 States", value: "Coverage" },
-            { label: "Risk Summaries", value: "AI-Powered" },
+            { label: "Coverage", value: "Australia" },
+            { label: "Data Inputs", value: "BOM + Gauges" },
+            { label: "AI Output", value: "Risk Detection" },
+            { label: "Use Case", value: "Location-Based" },
           ].map((s) => (
-            <div key={s.label} className="text-center p-4 bg-white rounded-xl shadow-sm border">
-              <div className="text-2xl font-bold text-gray-900">{s.value}</div>
+            <div key={s.label} className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm">
+              <div className="text-xl font-bold text-gray-900">{s.value}</div>
               <div className="text-sm text-gray-500">{s.label}</div>
             </div>
           ))}
@@ -75,60 +70,73 @@ export default function LandingPage() {
       </section>
 
       {/* What You Get */}
-      <section className="max-w-5xl mx-auto px-4 pb-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-3">What You Get With a Free Account</h2>
-        <p className="text-center text-gray-500 mb-10">Register once to unlock everything below.</p>
+      <section className="max-w-5xl mx-auto px-4 mb-16">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">What You Get</h2>
+        <p className="text-gray-500 text-center mb-8">Everything included. No paywalls.</p>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             { title: "AI Risk Summary", desc: "Plain-English summaries with actionable guidance powered by AI analysis." },
-            { title: "NWS Alerts", desc: "Real-time severe weather alerts from the National Weather Service with severity levels." },
-            { title: "USGS River Gauges", desc: "Monitor 9,000+ USGS river gauges with trend indicators and flood thresholds." },
+            { title: "BOM Alerts", desc: "Real-time severe weather alerts from the Bureau of Meteorology with severity levels." },
+            { title: "River & Flood Gauges", desc: "Monitor river gauges with trend indicators and flood thresholds across Australia." },
             { title: "Weather Forecast", desc: "7-day forecasts including rainfall, temperature, wind and storm probability." },
             { title: "Saved Locations", desc: "Save home, farm, work and travel routes for instant risk checks." },
             { title: "Smart Alerts", desc: "Get notified when risk changes at your locations via email or SMS." },
           ].map((f) => (
-            <div key={f.title} className="bg-white p-6 rounded-xl shadow-sm border">
-              <h3 className="font-semibold text-gray-900 mb-2">{f.title}</h3>
-              <p className="text-sm text-gray-600">{f.desc}</p>
+            <div key={f.title} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{f.title}</h3>
+              <p className="text-gray-500 text-sm">{f.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Risk Tiers */}
-      <section className="max-w-4xl mx-auto px-4 pb-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-3">Your Risk at a Glance</h2>
-        <p className="text-center text-gray-500 mb-10">A single clear rating for your location.</p>
+      <section className="max-w-4xl mx-auto px-4 mb-16">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">Your Risk at a Glance</h2>
+        <p className="text-gray-500 text-center mb-8">A single clear rating for your location.</p>
         <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { level: "LOW", range: "0-29", color: "green", desc: "Minimal risk. Normal conditions." },
-            { level: "MED", range: "30-64", color: "yellow", desc: "Elevated conditions. Monitor closely." },
-            { level: "HIGH", range: "65-100", color: "red", desc: "Significant risk. Take precautions." },
-          ].map((tier) => (
-            <div key={tier.level} className="bg-white p-6 rounded-xl shadow-sm border text-center">
-              <div className={`inline-block px-4 py-1 rounded-full text-white font-bold mb-3 bg-${tier.color}-500`}>
-                {tier.level}
-              </div>
-              <div className="text-sm text-gray-500">Score {tier.range}</div>
-              <p className="text-sm text-gray-600 mt-2">{tier.desc}</p>
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <span className="text-green-600 font-bold text-lg">Low</span>
             </div>
-          ))}
+            <p className="text-gray-900 font-medium mb-1">Minimal risk detected</p>
+            <p className="text-gray-500 text-sm">No action required at this time</p>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <span className="text-yellow-600 font-bold text-lg">Medium</span>
+            </div>
+            <p className="text-gray-900 font-medium mb-1">Monitor conditions closely</p>
+            <p className="text-gray-500 text-sm">Stay informed and prepare if needed</p>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <span className="text-red-600 font-bold text-lg">High</span>
+            </div>
+            <p className="text-gray-900 font-medium mb-1">Action recommended</p>
+            <p className="text-gray-500 text-sm">Take precautions and monitor official channels</p>
+          </div>
         </div>
       </section>
 
       {/* Bottom CTA */}
-      <section className="max-w-2xl mx-auto text-center px-4 pb-20">
-        <h2 className="text-3xl font-bold text-gray-900 mb-3">Ready to Check Your Risk?</h2>
-        <p className="text-gray-500 mb-8">
-          Create a free account to unlock AI-powered weather intelligence for any US location.
-        </p>
-        <Link
-          href="/login?tab=register"
-          className="inline-block bg-blue-600 text-white px-10 py-3.5 rounded-xl font-medium hover:bg-blue-700 transition"
-        >
-          Get Started Free
+      <section className="max-w-4xl mx-auto px-4 text-center mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 mb-3">Check Your Weather Risk</h2>
+        <p className="text-gray-500 mb-6">Enter any Australian location for real-time risk analysis</p>
+        <Link href="/login?tab=register" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition inline-block">
+          Start Free Check
         </Link>
       </section>
+
+      {/* Footer */}
+      <footer className="max-w-4xl mx-auto px-4 pb-8 text-center text-gray-400 text-xs border-t border-gray-200 pt-6 space-y-1">
+        <p>REALM Weather Intelligence v1.0 | Australia Coverage | Decision-support only, not an emergency warning system</p>
+        <p>Not a replacement for BOM alerts. Not emergency advice. Use official channels for critical decisions.</p>
+        <p>Part of the REALM Overlay Intelligence System</p>
+      </footer>
     </main>
   );
 }
