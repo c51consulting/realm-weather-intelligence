@@ -54,83 +54,73 @@ function ResultsContent() {
       </div>
     </div>
   );
-
   if (!location) return <div className="p-8 text-center text-gray-500">No location specified.</div>;
   if (loading) return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm mx-auto mb-3 animate-pulse">R</div>
-        <p className="text-gray-500 text-sm">Loading weather data...</p>
-      </div>
+      <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
     </div>
   );
   if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
   if (!data) return null;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-1">{data.location.name}</h1>
-      <p className="text-gray-500 mb-6">{data.location.state}</p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        <h1 className="text-3xl font-bold text-gray-900">{data.location.name}</h1>
+        <p className="text-gray-500 mb-6">{data.location.state}</p>
 
-      {/* Current Conditions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-gray-500 text-sm">Temp</div>
-          <div className="text-2xl font-bold">{data.forecast.current.temp_c}</div>
-          <div className="text-gray-400 text-sm">°C</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white rounded-xl p-4 shadow">
+            <p className="text-gray-500 text-sm">Temp</p>
+            <p className="text-2xl font-bold">{data.forecast.current.temp_f}&deg;F</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 shadow">
+            <p className="text-gray-500 text-sm">Rain 24h</p>
+            <p className="text-2xl font-bold">{data.forecast.rain_next_24h}&quot;</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 shadow">
+            <p className="text-gray-500 text-sm">Wind</p>
+            <p className="text-2xl font-bold">{data.forecast.current.wind_mph} mph</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 shadow">
+            <p className="text-gray-500 text-sm">NWS Alerts</p>
+            <p className="text-2xl font-bold">{data.warnings.length}</p>
+          </div>
         </div>
-        <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-gray-500 text-sm">Rain 24h</div>
-          <div className="text-2xl font-bold">{data.forecast.rain_next_24h}</div>
-          <div className="text-gray-400 text-sm">mm</div>
-        </div>
-        <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-gray-500 text-sm">Wind</div>
-          <div className="text-2xl font-bold">{data.forecast.current.wind_kmh}</div>
-          <div className="text-gray-400 text-sm">km/h</div>
-        </div>
-        <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-gray-500 text-sm">BOM Alerts</div>
-          <div className="text-2xl font-bold">{data.warnings.length}</div>
-        </div>
-      </div>
 
-      {/* AI Risk Summary */}
-      <div className="bg-white rounded-xl border p-6 mb-8">
-        <h2 className="font-bold text-lg mb-3">AI Risk Summary</h2>
-        <div className="mb-4"><RiskBadge level={data.risk.level} score={data.risk.score} /></div>
-        <p className="text-gray-700 leading-relaxed">{data.summary.summary}</p>
-      </div>
-
-      {/* BOM Alerts */}
-      {data.warnings.length > 0 && (
-        <div className="bg-white rounded-xl border p-6 mb-8">
-          <h2 className="font-bold text-lg mb-3">Active BOM Alerts</h2>
-          {data.warnings.map((w: any, i: number) => (
-            <div key={i} className="border-b last:border-0 py-3">
-              <div className="font-semibold">{w.severity || w.event} — {w.event || w.title}</div>
-              <p className="text-sm text-gray-600">{w.headline || w.summary}</p>
-            </div>
-          ))}
+        <div className="bg-white rounded-xl shadow p-6 mb-6">
+          <h2 className="text-lg font-semibold mb-3">AI Risk Summary</h2>
+          <RiskBadge level={data.risk.level} score={data.risk.score} />
+          <p className="mt-4 text-gray-700 leading-relaxed">{data.summary.summary}</p>
         </div>
-      )}
 
-      {/* 7-Day Forecast */}
-      {data.forecast.daily && data.forecast.daily.length > 0 && (
-        <div className="bg-white rounded-xl border p-6 mb-8">
-          <h2 className="font-bold text-lg mb-3">7-Day Forecast</h2>
-          <div className="grid grid-cols-7 gap-2 text-center text-sm">
-            {data.forecast.daily.map((d: any, i: number) => (
-              <div key={i} className="p-2">
-                <div className="font-semibold text-gray-500">{d.name || d.date}</div>
-                <div className="font-bold">{d.temp || `${d.temp_max}/${d.temp_min}`}</div>
-                <div className="text-gray-400 text-xs">°C</div>
-                {d.rain_mm > 0 && <div className="text-blue-500 text-xs">{d.rain_mm}mm</div>}
+        {data.warnings.length > 0 && (
+          <div className="bg-white rounded-xl shadow p-6 mb-6">
+            <h2 className="text-lg font-semibold mb-3">Active NWS Alerts</h2>
+            {data.warnings.map((w: any, i: number) => (
+              <div key={i} className="border-b last:border-0 py-3">
+                <p className="font-medium">{w.severity || w.event} — {w.event || w.title}</p>
+                <p className="text-sm text-gray-600 mt-1">{w.headline || w.summary}</p>
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+
+        {data.forecast.daily && data.forecast.daily.length > 0 && (
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-lg font-semibold mb-3">7-Day Forecast</h2>
+            <div className="grid grid-cols-7 gap-2 text-center text-sm">
+              {data.forecast.daily.map((d: any, i: number) => (
+                <div key={i} className="p-2">
+                  <p className="font-medium">{d.name || d.date}</p>
+                  <p className="text-lg font-bold mt-1">{d.temp || `${d.temp_max}/${d.temp_min}`}</p>
+                  <p className="text-gray-500 text-xs mt-1">{d.short || ''}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
