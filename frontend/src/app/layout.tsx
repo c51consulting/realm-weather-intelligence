@@ -13,6 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <Navbar />
         {children}
+      {/* RR-WIDGET-EMBED-v1 — Robbie's REALM cross-portal embed */}
+      <section aria-label="Latest from Robbie's REALM" style={{borderTop:"1px solid rgba(0,0,0,0.06)",background:"#f7f8f5"}}>
+        <div id="robbies-realm-embed" data-count="3" data-theme="light" data-utm={typeof window!=="undefined"?window.location.hostname:"portal"}></div>
+        <script async src="https://realm-widgets.vercel.app/robbies-realm-widget.js" />
+      </section>
+
       </body>
     </html>
   );
